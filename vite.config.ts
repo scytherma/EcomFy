@@ -11,14 +11,15 @@ export default defineConfig({
     process.env.REPL_ID !== undefined
       ? [
           await import("@replit/vite-plugin-cartographer").then((m) =>
-            m.cartographer(),
+            m.cartographer()
           ),
           await import("@replit/vite-plugin-dev-banner").then((m) =>
-            m.devBanner(),
+            m.devBanner()
           ),
         ]
       : []),
   ],
+
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "client", "src"),
@@ -26,11 +27,16 @@ export default defineConfig({
       "@assets": path.resolve(import.meta.dirname, "attached_assets"),
     },
   },
+
+  // 📌 A raiz do projeto (onde está o index.html)
   root: path.resolve(import.meta.dirname, "client"),
+
+  // 📌 Build AGORA correto -> sai em client/dist
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist/public"),
+    outDir: "dist",      // 🔥 CORREÇÃO IMPORTANTE
     emptyOutDir: true,
   },
+
   server: {
     fs: {
       strict: true,
